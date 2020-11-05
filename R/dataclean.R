@@ -6,6 +6,9 @@
 #' @examples 
 #' dataclean()
 
+#to create data object by reading in data file
+data <- read.csv("GSE59739_DataTable.csv", header = FALSE, stringsAsFactors = FALSE)
+
 #make a function for reading in data and cleaning
 dataclean <- function(data){
   #transpose data to flip rows and columns
