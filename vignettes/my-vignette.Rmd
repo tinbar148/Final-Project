@@ -1,0 +1,66 @@
+---
+title: "scRNAseq Analysis"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{scRNAseq Analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r setup}
+library(finalrnaseq)
+```
+
+## About this package
+
+This single cell rnaSeq package provides three functions for simple analysis of single cell rna seq databases. With it, you can clean rnaSeq datasets, run TCA analyses and plot results, and make a K-means plot using gene expression data.
+
+
+## Functions included
+
+The three functions in this package are dataclean, tcaplot, and kmeansplotter. These functions need to be run in order to produce analyses of gene expression data, as the first function cleans the dataset to be used in the second function and the third uses the tca analysis to produce a k-means plot.
+
+
+## First function
+
+### dataclean.R
+
+This function works by reading a dataset and cleaning it so that only gene names and their expression data is included. In this format, the second two functions can be used to select any given gene for analysis. In this example, the dataset used is publicly available through NIH and shows RNA-seq of single cells from the mouse lumbar dorsal root ganglion. The code for dataclean.R includes a line for reading in this specific data, although this can be altered to read in any rnaseq file used. 
+Here is an an example of how this function works:
+```{r}
+data <- read.csv("GSE59739_DataTable.csv", header = FALSE, stringsAsFactors = FALSE)
+#this is the initial example dataset
+print(data[1:10,1:50])
+
+finalrnaseq:::dataclean(data[1:10,1:50])
+#this is the final cleaned dataset including only gene expression data
+print(finalexp)
+
+```
+
+## Second function
+
+### tcaplot
+
+This function works by allowing users to select a gene of interest from the cleaned dataset. It then runs a TCA analysis on the expression levels of this gene and plots gene expression in a TCA plot.
+
+Here is an example of how this function works:
+```{r}
+#choose gene for analysis
+gname <- "Mrpl15"
+
+finalrnaseq:::tcaplot(finalexp, gname)
+
+```
+
+## Third function
+
+### kmeansplotter
+
+This function uses the TCA analysis run by the second function to produce a K-means plot of expression levels for the same gene selected in the second function.
+
+Here is an example of how this function works:
+```{r}
+finalrnaseq:::kmeansplotter(finalexp)
+
+```
+

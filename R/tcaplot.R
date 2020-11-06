@@ -8,14 +8,14 @@
 #' tcaplot()
 
 #choose gene for analysis
-gname <- "Sox17"
+gname <- "Mrpl15"
 
 tcaplot <- function(finalexp, gname){
-  #run PCA analysis on one gene and plot
+  #run PCA analysis on one gene 
   PCAresult <<- prcomp(finalexp, scale. = T)
   plot(PCAresult$x)
   
-  #set color gradient from green to red
+  #set color gradient and parameters
   ncolors <- 100
   cRamp <- colorRampPalette(c("seagreen", "yellow", "red"))
   cols <- c("gray", cRamp(ncolors))
@@ -24,5 +24,7 @@ tcaplot <- function(finalexp, gname){
   gfinalexp <- gfinalexp + 1
   gfinalexp.col <- cols[gfinalexp]
   pcs <<- c(1,2)
+  
+  #produce final plot
   plot(PCAresult$x[,pcs[1]], PCAresult$x[,pcs[2]], col = gfinalexp.col, pch = 19, main = gname, xlab = paste("PC", pcs[1]), ylab = paste("PC", pcs[2]))
 }
